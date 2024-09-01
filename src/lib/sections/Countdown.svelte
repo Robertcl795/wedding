@@ -58,7 +58,7 @@
 		</div>
 	</div>
 	<div class="date card">
-		<p class="cursive-1">{dateText}</p>
+		<p class="garamond">{dateText}</p>
 	</div>
 	<div class="photos">
 		<img class="photo border-xs" src="/photos/P25.jpg" alt="Pictures of our wedding" />
