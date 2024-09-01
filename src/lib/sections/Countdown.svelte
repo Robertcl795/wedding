@@ -39,7 +39,6 @@
 </script>
 
 <section id="countdown" class="countdown-container">
-	
 	<header class="text border-xs">
 		<h2 class="title cursive-1">Estás invitado!</h2>
 		<p class="subtitle garamond">Queremos que seas parte de este momento tan especial</p>
@@ -64,64 +63,70 @@
 			</div>
 		</div>
 	</div>
-	<img class="photo border-xs" style="grid-area: photo1;" src="/photos/P25.jpg" alt="Pictures of our wedding" />
-	<img class="photo border-xs" style="grid-area: photo2;" src="/photos/P26.jpg" alt="Pictures of our wedding" />
+	<div class="photos">
+		<img class="photo border-xs" src="/photos/P25.jpg" alt="Pictures of our wedding" />
+		<img class="photo border-xs" src="/photos/P26.jpg" alt="Pictures of our wedding" />
+	</div>
 </section>
 
 <style>
 	.countdown-container {
-		height: calc(100% - 4rem);
-		display: grid;
+		display: flex;
+		flex-direction: column;
 		align-items: center;
-		justify-items: center;
-		grid-template-rows: 2fr 1fr 5fr;
-		grid-template-columns: 1fr 1fr;
-		grid-template-areas: "text text" "countdown countdown" "photo1 photo2";
-		align-content: center;
+		justify-content: center;
+		min-height: calc(100vh - 4rem);
 		padding: 2rem 1rem;
+		box-sizing: border-box;
 	}
-	section.text {
+
+	.text {
 		text-align: center;
-		padding: 2rem;
+		padding: 0.5rem;
 		background-color: rgba(0, 0, 0, 0.5);
 		border-radius: 10px;
-		grid-area: text;
-		width: 70%;
+		width: 100%;
+		max-width: 600px;
+		margin-bottom: 2rem;
 	}
+
 	.countdown {
-		width: 70%;
+		width: 100%;
+		max-width: 600px;
 		text-align: center;
-		grid-area: countdown;
 		color: white;
+		margin-bottom: 2rem;
 	}
 
 	h2 {
-		font-size: 8rem;
-		line-height: 8rem;
+		font-size: 4rem;
+		line-height: 1.2;
+		margin-bottom: 1rem;
 	}
+
 	.subtitle {
-		font-size: 2rem;
+		font-size: 1.5rem;
 	}
 
 	.timer {
 		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1rem;
 		justify-content: center;
-		gap: 2.5rem;
-		grid-template-columns: 1fr 1fr 1fr 1fr;
 	}
 
 	.time-unit {
-		display: grid;
-		align-content: center;
+		display: flex;
+		flex-direction: column;
 		align-items: center;
-		grid-template-rows: 1fr 2rem;
+		justify-content: center;
 		background-color: rgba(0, 0, 0, 0.5);
 		border-radius: 10px;
 		padding: 1rem;
 	}
 
 	.number {
-		font-size: 2.5rem;
+		font-size: 2rem;
 		font-weight: bold;
 	}
 
@@ -129,9 +134,52 @@
 		font-size: 0.8rem;
 		text-transform: uppercase;
 	}
+
+	.photos {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		width: 100%;
+	}
+
 	.photo {
-		width: 80%;
+		width: 100%;
+		max-width: 300px;
 		height: auto;
 		border-radius: 1rem;
+		object-fit: cover;
+	}
+
+	@media (min-width: 768px) {
+		.countdown-container {
+			flex-direction: column;
+		}
+
+		h2 {
+			font-size: 6rem;
+		}
+
+		.subtitle {
+			font-size: 2rem;
+		}
+
+		.timer {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.number {
+			font-size: 2.5rem;
+		}
+
+		.photos {
+			flex-direction: row;
+			justify-content: center;
+		}
+
+		.photo {
+			width: calc(50% - 0.5rem);
+			max-width: 400px;
+		}
 	}
 </style>
