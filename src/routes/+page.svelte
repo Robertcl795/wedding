@@ -17,7 +17,7 @@
 		<Cover />
 	</section>
 	<section class="snap-section">
-		<Countdown targetDate={weddingDate} />
+		<Countdown targetDate={weddingDate} dateText="12 de Octubre de 2024" />
 	</section>
 	<section class="snap-section">
 		<Details />
