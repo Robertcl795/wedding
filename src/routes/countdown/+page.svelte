@@ -1,8 +1,8 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 
-	export let targetDate = new Date('2025-01-01T00:00:00').getTime();
-	export let dateText = '';
+	export let targetDate = new Date('2024-10-12T12:00:00').getTime();
+	export let dateText = '12 de Octubre de 2024';
 
 	let days, hours, minutes, seconds;
 	let countdownTimer;

@@ -14,9 +14,9 @@
 	let minimapImageUrl2 = '/photos/Map_2.png';
 	let dresscodeIconSuit = 'mdi:suit';
 	let dresscodeIconDress = 'mdi:dress';
-	let address1 = "C. Manuel López Cotilla 935, Col Americana, Americana, 44160 Guadalajara, Jal.";
+	let address1 = "C. Manuel López Cotilla 935, Col Americana";
 	let addressDet1 = "Parroquia El Expiatorio del Santísimo Sacramento";
-	let address2 = "C. Felipe Ruvalcaba 5330, Colli Urbano, 45070 Zapopan, Jal.";
+	let address2 = "C. Felipe Ruvalcaba 5330, Colli Urbano.";
 	let addressDet2 = "Salón de eventos Klariz";
 	export let sections = [
 		{
@@ -107,9 +107,9 @@
 					target="_blank"
 				>
 					<span class="flex flex-col">
-					<span class="text-xl font-bold cursor-pointer">Ceremonia</span>
-					<span class="text-base font-semibold">{addressDet1}</span>
-					<span class="text-base font-semibold">{address1}</span>
+					<span class="text-2xl pb-3 font-bold cursor-pointer">Ceremonia: 11:30AM</span>
+					<span class="text-xl font-semibold">{addressDet1}</span>
+					<span class="text-xl font-semibold">{address1}</span>
 					</span>
 					<MaterialSymbolsOpenInNewSharp  style="font-size: 2rem;" />
 				</a>
@@ -126,9 +126,9 @@
 					target="_blank"
 				>
 					<span class="flex flex-col">
-						<span class="text-xl font-bold cursor-pointer">Evento</span>
-						<span class="text-base font-semibold">{addressDet2}</span>
-						<span class="text-base font-semibold">{address2}</span>
+						<span class="text-2xl pb-3 font-bold cursor-pointer">Evento: 02:45PM</span>
+						<span class="text-xl font-semibold">{addressDet2}</span>
+						<span class="text-xl font-semibold">{address2}</span>
 					</span>
 					<MaterialSymbolsOpenInNewSharp  style="font-size: 2rem;" />
 

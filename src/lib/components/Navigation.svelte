@@ -12,26 +12,24 @@
 	let currentPath: string = '';
 	
 	// Update currentPath whenever the page store changes
-	$: currentPath = $page.url.hash;
+	$: currentPath = $page.url.pathname;
 
 	const navItems = [
-		{ href: '#home', label: 'Inicio' },
-		{ href: '#countdown', label: 'Cuenta regresiva' },
-		{ href: '#details', label: 'Detalles' },
-		{ href: '#location', label: 'Ubicación' },
-		{ href: '#schedule', label: 'Itinerario' },
-		{ href: '#gifts', label: 'Regalos' },
-		{ href: '#rsvp', label: 'Confirmación' },
-		{ href: '#stay', label: 'Hospedaje' },
-		{ href: '#our-story', label: 'Nuestra historia' }
+		{ href: '/', label: 'Inicio' },
+		{ href: '/countdown', label: 'Cuenta regresiva' },
+		{ href: '/details', label: 'Detalles' },
+		{ href: '/gifts', label: 'Regalos' },
+		{ href: '/rsvp', label: 'Confirmación' },
+		{ href: '/stay', label: 'Hospedaje' },
+		{ href: '/our-story', label: 'Nuestra historia' }
 	];
 </script>
 
-<ul class="lg:flex lg:space-x-2 space-y-2 lg:space-y-0 p-4 lg:p-0">
+<ul class="lg:flex lg:space-x-2 space-y-6 lg:space-y-0 p-4 lg:p-0">
 	{#each navItems as item}
 		<li>
 			<a
-				class="btn btn-sm w-full lg:w-auto {currentPath === item.href
+				class="btn btn-sm w-full lg:w-auto p-4 {currentPath === item.href
 					? 'variant-filled-primary'
 					: 'variant-glass-surface'}"
 				on:click={drawerClose}
