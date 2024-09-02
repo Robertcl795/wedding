@@ -4,7 +4,7 @@
 
 <section id="home" class="parallax-container">
 	<div 
-	  class="background-image" 
+	  class="background-image border-xs" 
 	  style="background-image: url('/photos/P28.jpg');"
 	></div>
 	<div class="content-wrapper">
@@ -52,10 +52,8 @@
   
 	.background-image {
 	  position: absolute;
-	  top: 0; 
-	  left: 0;
-	  width: 100%;
-	  height: 100%;
+	  width: 80%;
+	  height: 80%;
 	  background-size: cover;
 	  background-position: calc(50% + 4rem) center;  /* Adjusted position */
 	  will-change: transform;

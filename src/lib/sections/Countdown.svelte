@@ -33,38 +33,38 @@
 </script>
 
 <section id="countdown" class="countdown-container">
-	<header class="header-text text border-xs">
+	<header class="header-text text variant-ghost-surface">
 		<h2 class="title cursive-1">Estás invitado!</h2>
 		<p class="subtitle garamond">Queremos que seas parte de este momento tan especial</p>
 	</header>
 	<div class="countdown">
 		<div class="timer">
-			<div class="card time-unit border-xs">
+			<div class="card time-unit variant-ghost-surface">
 				<span class="number">{days}</span>
 				<span class="label">Days</span>
 			</div>
-			<div class="card time-unit border-xs">
+			<div class="card time-unit variant-ghost-surface">
 				<span class="number">{hours}</span>
 				<span class="label">Hours</span>
 			</div>
-			<div class="card time-unit border-xs">
+			<div class="card time-unit variant-ghost-surface">
 				<span class="number">{minutes}</span>
 				<span class="label">Minutes</span>
 			</div>
-			<div class="card time-unit border-xs">
+			<div class="card time-unit variant-ghost-surface">
 				<span class="number">{seconds}</span>
 				<span class="label">Seconds</span>
 			</div>
 		</div>
 	</div>
-	<div class="date card">
+	<div class="date card variant-ghost-surface">
 		<p class="garamond">{dateText}</p>
 	</div>
 	<div class="photos">
-		<img class="photo border-xs" src="/photos/P25.jpg" alt="Pictures of our wedding" />
-		<img class="photo border-xs" src="/photos/P26.jpg" alt="Pictures of our wedding" />
-		<img class="photo border-xs" src="/photos/P15.jpg" alt="Pictures of our wedding" />
-		<img class="photo border-xs" src="/photos/P8.jpg" alt="Pictures of our wedding" />
+		<img class="photo variant-ghost-surface" src="/photos/P25.jpg" alt="Pictures of our wedding" />
+		<img class="photo variant-ghost-surface" src="/photos/P26.jpg" alt="Pictures of our wedding" />
+		<img class="photo variant-ghost-surface" src="/photos/P15.jpg" alt="Pictures of our wedding" />
+		<img class="photo variant-ghost-surface" src="/photos/P8.jpg" alt="Pictures of our wedding" />
 	</div>
 </section>
 
@@ -233,7 +233,7 @@
 		
 
 		.photo {
-			width: calc(50% - 0.5rem);
+			width: calc(40% - 0.5rem);
 			max-width: none;
 			height: auto;
 			object-fit: cover;

@@ -1,65 +1,37 @@
-<!-- StarryBackground.svelte -->
 <script lang="ts">
-  import Particles from "@tsparticles/svelte";
-  import { loadStarsPreset } from "@tsparticles/preset-stars";
+  import { onMount } from 'svelte';
+  import { M } from 'svelte-motion';
 
-  let particlesInitialized = false;
+  let stars: any = [];
+  const starCount = 100;
 
-  const particlesInit = async (engine) => {
-    await loadStarsPreset(engine);
-  };
+  function createStar() {
+    return {
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 2 + 1,
+      flickerDuration: Math.random() * 3 + 1
+    };
+  }
 
-  const particlesLoaded = async (container) => {
-    particlesInitialized = true;
-  };
-
-  const options: any = {
-    preset: "stars",
-    background: {
-      color: {
-        value: "#000"
-      }
-    },
-    particles: {
-      number: {
-        value: 100,
-        density: {
-          enable: true,
-          value_area: 800
-        }
-      },
-      color: {
-        value: "#ffffff"
-      },
-      size: {
-        value: 3,
-        random: true,
-        anim: {
-          enable: true,
-          speed: 2,
-          size_min: 0.1,
-          sync: false
-        }
-      },
-      line_linked: {
-        enable: false
-      },
-      move: {
-        enable: true,
-        speed: 0.5,
-        direction: "none",
-        random: true,
-        straight: false,
-        out_mode: "out",
-        bounce: false,
-      }
-    }
-  };
+  onMount(() => {
+    stars = Array(starCount).fill().map(createStar);
+  });
 </script>
 
-<Particles
-  id="tsparticles"
-  options={options}
-  on:particlesInit={particlesInit}
-  on:particlesLoaded={particlesLoaded}
-/>
+<div class="fixed inset-0 bg-gradient-to-b from-black to-blue-900">
+  {#each stars as star}
+    <M.div
+      class="absolute rounded-full bg-white"
+      style="left: {star.x}%; top: {star.y}%;"
+      animate={{ opacity: [0.2, 1, 0.2] }}
+      transition={{
+        duration: star.flickerDuration,
+        repeat: Infinity,
+        repeatType: "reverse"
+      }}
+    >
+      <div style="width: {star.size}px; height: {star.size}px;" />
+    </M.div>
+  {/each}
+</div>
