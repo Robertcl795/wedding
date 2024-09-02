@@ -28,9 +28,6 @@
 		<Details />
 	</section>
 	<section class="snap-section z-20">
-		<Location />
-	</section>
-	<section class="snap-section z-20">
 		<Gifts />
 	</section>
 	<section class="snap-section z-20">
