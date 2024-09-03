@@ -1,10 +1,16 @@
-<script>
+<script lang="ts">
 	import AvatarCard from '$components/Avatar.svelte';
 	import { TreeView, TreeViewItem } from '@skeletonlabs/skeleton';
 	import NotoV1BrideWithVeilMediumLightSkinTone from '~icons/noto-v1/bride-with-veil-medium-light-skin-tone';
 	import NotoV1PersonInTuxedoLightSkinTone from '~icons/noto-v1/person-in-tuxedo-light-skin-tone';
 	import NotoV1WomanAndManHoldingHands from '~icons/noto-v1/woman-and-man-holding-hands';
 	import MaterialSymbolsOpenInNewSharp from '~icons/material-symbols/open-in-new-sharp';
+	import NotoRing from '~icons/noto/ring'
+	import NotoHeartWithRibbon from '~icons/noto/heart-with-ribbon'
+	import NotoCoin from '~icons/noto/coin'
+	import NotoMoneyWithWings from '~icons/noto/money-with-wings'
+	import NotoWomanFeedingBaby from '~icons/noto/woman-feeding-baby'
+	import NotoManFeedingBaby from '~icons/noto/man-feeding-baby'
 	import NotoDress from '~icons/noto/dress';
 	import NotoNecktie from '~icons/noto/necktie';
 	import Section from '$components/Section.svelte';
@@ -19,37 +25,34 @@
 	let addressDet1 = 'Parroquia El Expiatorio del Santísimo Sacramento';
 	let address2 = 'C. Felipe Ruvalcaba 5330, Colli Urbano.';
 	let addressDet2 = 'Salón de eventos Klariz';
-	export let sections = [
+	export let sections: any = [
 		{
 			title: 'Jacqueline Rosales',
-			avatarUrl: '/photos/P28.jpg',
 			icon: NotoV1BrideWithVeilMediumLightSkinTone,
 			open: true,
 			avatars: [
-				{ avatarUrl: '/photos/P28.jpg', name: 'Madre: Carolina Trigo' },
-				{ avatarUrl: '/photos/P28.jpg', name: 'Padre: Daniel Pozos' }
+				{ icon: NotoWomanFeedingBaby, name: 'Madre: Carolina Trigo' },
+				{ icon: NotoManFeedingBaby, name: 'Padre: Daniel Pozos' }
 			]
 		},
 		{
 			title: 'Roberto Carrillo',
-			avatarUrl: '/photos/P28.jpg',
 			icon: NotoV1PersonInTuxedoLightSkinTone,
 			open: false,
 			avatars: [
-				{ avatarUrl: '/photos/P28.jpg', name: 'Madre: Erika Luevano' },
-				{ avatarUrl: '/photos/P28.jpg', name: 'Padre: Jorge Carrillo' }
+				{ icon: NotoWomanFeedingBaby, name: 'Madre: Erika Luevano' },
+				{ icon: NotoManFeedingBaby, name: 'Padre: Jorge Carrillo' }
 			]
 		},
 		{
 			title: 'Rosalina Tadeo & Roberto Luevano',
 			icon: NotoV1WomanAndManHoldingHands,
 			name: 'Rosalina Tadeo & Roberto Luevano',
-			avatarUrl: '/photos/P28.jpg',
 			open: false,
 			avatars: [
-				{ avatarUrl: '/photos/P28.jpg', name: 'Anillo: Carolina Trigo & Manuel Saavedra' },
-				{ avatarUrl: '/photos/P28.jpg', name: 'Lazo: Angélica Ojeda & Jorge Delgado' },
-				{ avatarUrl: '/photos/P28.jpg', name: 'Arras: Padrino 1 & Padrino 2' }
+				{ icon: NotoRing, name: 'Anillo: Carolina Trigo & Manuel Saavedra' },
+				{ icon: NotoHeartWithRibbon, name: 'Lazo: Angélica Ojeda & Jorge Delgado' },
+				{ icon: NotoCoin, name: 'Arras: Jorge Carrillo', size: '1.25rem' }
 			]
 		}
 	];
@@ -77,7 +80,12 @@
 						{#each section.avatars as avatar}
 							<TreeViewItem>
 								<svelte:fragment slot="lead">
-									<AvatarCard avatarUrl={avatar.avatarUrl} name={avatar.name} />
+									<div
+										class="card flex items-center space-x-4 p-3 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg text-wrap"
+									>
+										<svelte:component this={avatar.icon} class="icon" style="font-size: {avatar.size ? avatar.size : '2rem'};" />
+										<p class="text-xl">{avatar.name}</p>
+									</div>
 								</svelte:fragment>
 							</TreeViewItem>
 						{/each}
@@ -169,7 +177,6 @@
 		text-align: left;
 	}
 	@media (min-width: 768px) {
-
 		.location {
 			flex-direction: column;
 			display: grid;

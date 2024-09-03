@@ -10,15 +10,6 @@
 	color="surface"
 	class="gifts-container"
 >
-	<Card img="/photos/P22.jpg" reverse={false} size="md">
-		<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">LIVERPOOL</h5>
-		<p class="mb-3 text-xl font-normal text-gray-700 dark:text-gray-300 leading-tight">
-			Número de evento: 51516538
-		</p>
-		<Button href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/51516538" target="_blank">
-			Ir a mesa de regalos <ArrowRightOutline class="w-6 h-6 ms-2 text-white" />
-		</Button>
-	</Card>
 	<Card img="/photos/P30.jpg" reverse={false} size="md">
 		<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 			LLUVIA DE SOBRES
@@ -48,6 +39,28 @@
 			hacerlo a la siguiente cuenta:
 		</p>
 		<ul>
+			<li class="flex space-x-2 rtl:space-x-reverse">
+				<p class="text-xl font-normal leading-tight text-gray-500 dark:text-gray-200">
+					<span class="font-bold">Nombre: </span>Jackie Rosales
+                </p>
+			</li>
+			<li class="flex space-x-2 rtl:space-x-reverse">
+				<CheckCircleSolid class="w-6 h-6 text-primary-600 dark:text-primary-500" />
+				<p class="text-xl font-normal leading-tight text-gray-500 dark:text-gray-200">
+					<span class="font-bold">Banco: </span>Santander
+                </p>
+			</li>
+            <li class="flex space-x-2 pb-4 rtl:space-x-reverse">
+				<CheckCircleSolid class="w-6 h-6 text-primary-600 dark:text-primary-500" />
+				<p class="text-xl font-normal leading-tight text-gray-500 dark:text-gray-200">
+					<span class="font-bold">Tarjeta: </span>5579 1002 3698 2516
+                </p>
+			</li>
+			<li class="flex space-x-2 rtl:space-x-reverse">
+				<p class="text-xl font-normal leading-tight text-gray-500 dark:text-gray-200">
+					<span class="font-bold">Nombre: </span>Roberto Carrillo
+                </p>
+			</li>
 			<li class="flex space-x-2 rtl:space-x-reverse">
 				<CheckCircleSolid class="w-6 h-6 text-primary-600 dark:text-primary-500" />
 				<p class="text-xl font-normal leading-tight text-gray-500 dark:text-gray-200">

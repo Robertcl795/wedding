@@ -1,5 +1,6 @@
 <!-- Cover.svelte -->
 <script lang="ts">
+	const divs = Array.from({ length: 20})
 </script>
 
 <section id="home" class="parallax-container">
@@ -7,6 +8,11 @@
 	  class="background-image border-xs" 
 	  style="background-image: url('/photos/P28.jpg');"
 	></div>
+	<div class="stars-background">
+		{#each divs as _}
+			<div class="shooting_star"></div>
+		{/each}
+	</div>
 	<div class="content-wrapper">
 	  <div class="content border-sm">
 		<h1 class="cursive-1">Nuestra Boda</h1>
@@ -29,7 +35,7 @@
 	.content-wrapper {
 	  position: relative;
 	  z-index: 1;
-	  width: 90%;
+	  width: 75%;
 	  max-width: 1200px;
 	}
   

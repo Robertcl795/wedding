@@ -37,9 +37,13 @@
 	$: currentIndex = routes.indexOf($page.url.pathname);
 
 	let touchStartX = 0;
+	let touchStartY = 0;
 	let touchEndX = 0;
+	let touchEndY = 0;
 	let swipeProgress = 0;
 	let isSwipeBlocked = false;
+	let isScrolling = false;
+	let scrollTimeout;
 
 	function handleTouchStart(e) {
 		// Check if the touch started on a blocked element
@@ -48,46 +52,96 @@
 			return;
 		}
 		isSwipeBlocked = false;
-		touchStartX = e.changedTouches[0].screenX;
+		isScrolling = false;
+		touchStartX = e.touches[0].screenX;
+		touchStartY = e.touches[0].screenY;
 		swipeProgress = 0;
 	}
-
 	function handleTouchMove(e) {
 		if (isSwipeBlocked) return;
 		touchEndX = e.changedTouches[0].screenX;
-		const swipeDistance = touchEndX - touchStartX;
-		const maxSwipeDistance = window.innerWidth / 2;
-		swipeProgress =
-			Math.min(Math.abs(swipeDistance) / maxSwipeDistance, 1) * (swipeDistance > 0 ? -1 : 1);
+		touchEndY = e.changedTouches[0].screenY;
+
+		const deltaX = touchEndX - touchStartX;
+		const deltaY = touchEndY - touchStartY;
+
+		// Detect if the user is scrolling vertically
+		if (Math.abs(deltaY) > Math.abs(deltaX)) {
+			isScrolling = true;
+			swipeProgress = 0;
+			return;
+		}
+
+		// If not scrolling, update swipe progress
+		if (!isScrolling) {
+			updateSwipeProgress(deltaX, deltaY);
+		}
 	}
 
 	function handleTouchEnd(e) {
 		if (isSwipeBlocked) return;
 		touchEndX = e.changedTouches[0].screenX;
-		handleSwipe();
-		swipeProgress = 0;
+		touchEndY = e.changedTouches[0].screenY;
+
+		if (!isScrolling) {
+			handleSwipe();
+		}
+
+		// Reset after a short delay to allow for quick successive swipes
+		scrollTimeout = setTimeout(() => {
+			isScrolling = false;
+			swipeProgress = 0;
+		}, 300);
+	}
+
+	function updateSwipeProgress(deltaX, deltaY) {
+		const horizontalThreshold = window.innerWidth / 3;
+		const verticalThreshold = window.innerHeight / 8;
+
+		// Calculate the horizontal component of the swipe
+		const horizontalProgress = Math.min(Math.abs(deltaX) / horizontalThreshold, 1);
+
+		// Calculate the vertical component of the swipe
+		const verticalProgress = Math.min(Math.abs(deltaY) / verticalThreshold, 1);
+
+		// Adjust horizontal progress based on vertical movement
+		const adjustedHorizontalProgress = horizontalProgress * (1 - verticalProgress);
+
+		// Set swipeProgress, considering the direction
+		swipeProgress = adjustedHorizontalProgress * (deltaX > 0 ? -1 : 1);
 	}
 
 	function handleSwipe() {
-		const swipeThreshold = window.innerWidth / 4; // 25% of screen width
-		const swipeDistance = touchEndX - touchStartX;
+		const horizontalThreshold = window.innerWidth / 3;
+		const verticalThreshold = window.innerHeight / 8;
+		const swipeDistanceX = touchEndX - touchStartX;
+		const swipeDistanceY = touchEndY - touchStartY;
 
-		if (Math.abs(swipeDistance) > swipeThreshold) {
-			if (swipeDistance > 0 && currentIndex > 0) {
+		if (
+			Math.abs(swipeDistanceX) > Math.abs(swipeDistanceY) &&
+			Math.abs(swipeDistanceX) > horizontalThreshold &&
+			Math.abs(swipeDistanceY) < verticalThreshold
+		) {
+			if (swipeDistanceX > 0 && currentIndex > 0) {
 				// Swipe right, go to previous route
 				goto(routes[currentIndex - 1]);
-			} else if (swipeDistance < 0 && currentIndex < routes.length - 1) {
+			} else if (swipeDistanceX < 0 && currentIndex < routes.length - 1) {
 				// Swipe left, go to next route
 				goto(routes[currentIndex + 1]);
 			}
 		}
 	}
 
+	// Function to add non-passive event listeners
+	function addNonPassiveEventListener(element, eventName, handler) {
+		element.addEventListener(eventName, handler, { passive: false });
+	}
+
 	onMount(() => {
 		const mainElement: any = document.querySelector('main');
-		mainElement.addEventListener('touchstart', handleTouchStart, { passive: true });
-		mainElement.addEventListener('touchmove', handleTouchMove, { passive: true });
-		mainElement.addEventListener('touchend', handleTouchEnd, { passive: true });
+		mainElement.addEventListener('touchstart', handleTouchStart);
+		mainElement.addEventListener('touchmove', handleTouchMove);
+		mainElement.addEventListener('touchend', handleTouchEnd);
 
 		return () => {
 			mainElement.removeEventListener('touchstart', handleTouchStart);

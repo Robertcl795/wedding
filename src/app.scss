@@ -145,6 +145,15 @@ $shooting-time: 3000ms;
     opacity: 1;
     animation: fade 2s linear infinite;
 }
+.stars-background {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	transform: rotateZ(45deg) scale(2);
+	z-index: -1;
+}
 
 
 @keyframes fade {

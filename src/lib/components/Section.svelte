@@ -6,9 +6,15 @@
 
 	let className = '';
 	export { className as class };
+	const divs = Array.from({ length: 20 });
 </script>
 
 <section class="section-container p-3 sm:p-6">
+	<div class="stars-background">
+		{#each divs as _}
+			<div class="shooting_star"></div>
+		{/each}
+	</div>
 	<div {color} class="header-card card card-hover {cardClass}">
 		<header class="header-text card-header cursive-1 flex flex-col items-center">
 			<h2 class="title text-4xl sm:text-8xl">{title}</h2>
@@ -37,9 +43,9 @@
 		padding: 1rem;
 		width: 100%;
 	}
-    .header-text {
-        text-align: center;
-    }
+	.header-text {
+		text-align: center;
+	}
 
 	.countdown-container {
 		display: flex;
@@ -56,12 +62,12 @@
 		box-sizing: border-box;
 		gap: 2rem;
 	}
-    .gifts-container {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        height: max-content;
-    }
+	.gifts-container {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		height: max-content;
+	}
 
 	@media (min-width: 640px) {
 		.header-card {
@@ -69,15 +75,15 @@
 		}
 		.section-container {
 			grid-template-rows: max-content 1fr;
-            height: 100%;
+			height: 100%;
 		}
 
 		.content {
 			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		}
 		.content.details-container {
-            width: 100%;
-            max-width: 100%;
+			width: 100%;
+			max-width: 100%;
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			grid-template-rows: max-content 1fr;
@@ -85,9 +91,9 @@
 				'treeview dresscode'
 				'treeview location';
 		}
-        .content.gifts-container {
-            flex-direction: row;
-            align-content: center;
-        }
+		.content.gifts-container {
+			flex-direction: row;
+			align-content: center;
+		}
 	}
 </style>
