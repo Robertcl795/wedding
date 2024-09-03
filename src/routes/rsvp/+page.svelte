@@ -15,7 +15,7 @@
 		event.preventDefault();
 		// Create the RSVP message
 		const inviteesList = inviteeNames.map((name, index) => `${index + 1}. ${name.trim()}`).join('\n');
-		const message = `RSVP:\n${inviteesList}`;
+		const message = `Confirmo asistencia:\n ${inviteesList}`;
 
 		// Encode the message for the WhatsApp URL
 		const encodedMessage = encodeURIComponent(message);
