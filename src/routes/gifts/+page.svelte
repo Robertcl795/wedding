@@ -6,7 +6,7 @@
 
 <Section
 	title="Mesa de Regalos"
-	subtitle="Su amor y apoyo son los mayores regalos que podríamos pedir. Si desea honrarnos con un regalo, tenemos las siguientes sugerencias:"
+	subtitle="Su amor y apoyo son los mayores regalos que podríamos pedir. Si deseas obsequiarnos un presente, tenemos las siguientes sugerencias:"
 	color="surface"
 	class="gifts-container"
 >
@@ -34,14 +34,14 @@
 		<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 			LUNA DE MIEL
 		</h5>
-		<p class="mb-3 text-xl font-normal text-gray-700 dark:text-gray-300 leading-tight">
+		<p class="mb-3 text-xl font-normal text-gray-700 dark:text-gray-300 leading-tight ">
 			O si lo deseas, puedes agregar kilómetros y experiencias a nuestra luna de miel. Puedes
-			hacerlo a la siguiente cuenta:
+			hacerlo a la siguientes cuentas:
 		</p>
 		<ul>
 			<li class="flex space-x-2 rtl:space-x-reverse">
 				<p class="text-xl font-normal leading-tight text-gray-500 dark:text-gray-200">
-					<span class="font-bold">Nombre: </span>Jackie Rosales
+					<span class="font-bold">Nombre: </span>Carolina Rosales Trigo
                 </p>
 			</li>
 			<li class="flex space-x-2 rtl:space-x-reverse">

@@ -19,9 +19,7 @@
 		{ href: '/countdown', label: 'Cuenta regresiva' },
 		{ href: '/details', label: 'Detalles' },
 		{ href: '/gifts', label: 'Regalos' },
-		{ href: '/rsvp', label: 'Confirmación' },
-		{ href: '/stay', label: 'Hospedaje' },
-		{ href: '/our-story', label: 'Nuestra historia' }
+		{ href: '/rsvp', label: 'Confirmación' }
 	];
 </script>
 

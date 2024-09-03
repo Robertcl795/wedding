@@ -2,9 +2,10 @@
 	import '../app.scss';
 	import '../app.postcss';
 	import { initializeStores, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
+	import { seats } from '$lib/stores/seatsStore';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 	import { onMount, onDestroy } from 'svelte';
-	import { goto } from '$app/navigation';
+	import { goto, replaceState } from '$app/navigation';
 	import { fade, fly } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import Navigation from '$components/Navigation.svelte';
@@ -22,7 +23,7 @@
 	}
 	const routes = ['/home', '/countdown', '/details', '/gifts', '/rsvp'];
 	let currentIndex = 0;
-
+	let unsubscribe: any;
 	$: {
 		// Update currentIndex whenever the route changes
 		const newIndex = routes.indexOf($page.url.pathname);
@@ -32,9 +33,14 @@
 			// Only navigate on the client side
 			goto('/home');
 		}
+		unsubscribe = page.subscribe(($page) => {
+			const urlParams = new URLSearchParams($page.url.search);
+			const seatsParam = urlParams.get('seats');
+			if(seatsParam) {
+				seats.set(parseInt(seatsParam, 10))
+			} 
+		})
 	}
-
-	$: currentIndex = routes.indexOf($page.url.pathname);
 
 	let touchStartX = 0;
 	let touchStartY = 0;
@@ -132,11 +138,6 @@
 		}
 	}
 
-	// Function to add non-passive event listeners
-	function addNonPassiveEventListener(element, eventName, handler) {
-		element.addEventListener(eventName, handler, { passive: false });
-	}
-
 	onMount(() => {
 		const mainElement: any = document.querySelector('main');
 		mainElement.addEventListener('touchstart', handleTouchStart);
@@ -147,6 +148,7 @@
 			mainElement.removeEventListener('touchstart', handleTouchStart);
 			mainElement.removeEventListener('touchmove', handleTouchMove);
 			mainElement.removeEventListener('touchend', handleTouchEnd);
+			unsubscribe();
 		};
 	});
 </script>

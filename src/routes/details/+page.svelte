@@ -1,5 +1,4 @@
 <script lang="ts">
-	import AvatarCard from '$components/Avatar.svelte';
 	import { TreeView, TreeViewItem } from '@skeletonlabs/skeleton';
 	import NotoV1BrideWithVeilMediumLightSkinTone from '~icons/noto-v1/bride-with-veil-medium-light-skin-tone';
 	import NotoV1PersonInTuxedoLightSkinTone from '~icons/noto-v1/person-in-tuxedo-light-skin-tone';
@@ -8,7 +7,6 @@
 	import NotoRing from '~icons/noto/ring'
 	import NotoHeartWithRibbon from '~icons/noto/heart-with-ribbon'
 	import NotoCoin from '~icons/noto/coin'
-	import NotoMoneyWithWings from '~icons/noto/money-with-wings'
 	import NotoWomanFeedingBaby from '~icons/noto/woman-feeding-baby'
 	import NotoManFeedingBaby from '~icons/noto/man-feeding-baby'
 	import NotoDress from '~icons/noto/dress';
@@ -19,8 +17,6 @@
 	let url2 = 'https://maps.app.goo.gl/6MBigUVkfBmWLpRk6';
 	let minimapImageUrl1 = '/photos/Map_1.png';
 	let minimapImageUrl2 = '/photos/Map_2.png';
-	let dresscodeIconSuit = 'mdi:suit';
-	let dresscodeIconDress = 'mdi:dress';
 	let address1 = 'C. Manuel López Cotilla 935, Col Americana';
 	let addressDet1 = 'Parroquia El Expiatorio del Santísimo Sacramento';
 	let address2 = 'C. Felipe Ruvalcaba 5330, Colli Urbano.';
@@ -29,7 +25,7 @@
 		{
 			title: 'Jacqueline Rosales',
 			icon: NotoV1BrideWithVeilMediumLightSkinTone,
-			open: true,
+			open: false,
 			avatars: [
 				{ icon: NotoWomanFeedingBaby, name: 'Madre: Carolina Trigo' },
 				{ icon: NotoManFeedingBaby, name: 'Padre: Daniel Pozos' }
@@ -60,7 +56,7 @@
 
 <Section
 	title="Detalles"
-	subtitle="Información importante del evento"
+	subtitle="Información importante del evento (mesa de honor, vestimenta, horario y ubicación)"
 	color="surface"
 	class="details-container"
 >
@@ -127,7 +123,7 @@
 			<footer>
 				<a class="btn variant-glass-primary w-full px-4 py-3 text-wrap" href={url2} target="_blank">
 					<span class="flex flex-col">
-						<span class="text-2xl pb-3 font-bold cursor-pointer">Evento: 02:45PM</span>
+						<span class="text-2xl pb-3 font-bold cursor-pointer">Evento: 02:30PM</span>
 						<span class="text-xl font-semibold">{addressDet2}</span>
 						<span class="text-xl font-semibold">{address2}</span>
 					</span>
