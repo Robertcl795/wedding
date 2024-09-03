@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
+	import Section from '$components/Section.svelte';
 	import { onMount, onDestroy } from 'svelte';
 
 	export let targetDate = new Date('2024-10-12T12:00:00').getTime();
 	export let dateText = '12 de Octubre de 2024';
 
-	let days, hours, minutes, seconds;
-	let countdownTimer;
+	let days: number, hours: number, minutes: number, seconds: number;
+	let countdownTimer: any;
 
 	function updateCountdown() {
 		const now = new Date().getTime();
@@ -32,11 +33,12 @@
 	});
 </script>
 
-<section id="countdown" class="countdown-container">
-	<header class="header-text text variant-ghost-surface">
-		<h2 class="title cursive-1">Estás invitado!</h2>
-		<p class="subtitle garamond">Queremos que seas parte de este momento tan especial</p>
-	</header>
+<Section
+	title="Estás Invitado!"
+	subtitle="Queremos que seas parte de este momento tan especial"
+	color="surface"
+	class="countdown-container"
+>
 	<div class="countdown">
 		<div class="timer">
 			<div class="card time-unit variant-ghost-surface">
@@ -60,25 +62,19 @@
 	<div class="date card variant-ghost-surface">
 		<p class="garamond">{dateText}</p>
 	</div>
-	<div class="photos">
+	<div class="photos block-swipe">
 		<img class="photo variant-ghost-surface" src="/photos/P25.jpg" alt="Pictures of our wedding" />
 		<img class="photo variant-ghost-surface" src="/photos/P26.jpg" alt="Pictures of our wedding" />
 		<img class="photo variant-ghost-surface" src="/photos/P15.jpg" alt="Pictures of our wedding" />
 		<img class="photo variant-ghost-surface" src="/photos/P8.jpg" alt="Pictures of our wedding" />
+		<img class="photo variant-ghost-surface" src="/photos/P6.jpg" alt="Pictures of our wedding" />
+		<img class="photo variant-ghost-surface" src="/photos/P10.jpg" alt="Pictures of our wedding" />
 	</div>
-</section>
+</Section>
 
 <style>
 	/* Mobile-first styles */
-	.countdown-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		min-height: calc(100vh - 4rem);
-		padding: 2rem 1rem;
-		box-sizing: border-box;
-	}
+	
 
 	.text {
 		text-align: center;
@@ -96,16 +92,6 @@
 		text-align: center;
 		color: white;
 		margin-bottom: 2rem;
-	}
-
-	h2 {
-		font-size: 3rem;
-		line-height: 1.2;
-		margin-bottom: 1rem;
-	}
-
-	.subtitle {
-		font-size: 1.25rem;
 	}
 
 	.timer {
@@ -169,14 +155,6 @@
 
 	/* Styles for tablets and larger screens */
 	@media (min-width: 768px) {
-		h2 {
-			font-size: 4rem;
-		}
-
-		.subtitle {
-			font-size: 1.75rem;
-		}
-
 		.timer {
 			grid-template-columns: repeat(4, 1fr);
 		}
@@ -207,17 +185,9 @@
 
 	/* Styles for larger desktops */
 	@media (min-width: 1024px) {
-		.header-text, .countdown, .date {
+		.countdown,
+		.date {
 			max-width: 70%;
-		}
-
-		.countdown-container {
-			display: grid;
-			grid-template-rows: max-content max-content max-content 4fr;
-			justify-items: center;
-			align-items: center;
-			gap: 1rem;
-			padding: 2rem;
 		}
 
 		.photos {
@@ -230,7 +200,6 @@
 			scroll-snap-type: x mandatory;
 			margin: 0 2rem;
 		}
-		
 
 		.photo {
 			width: calc(40% - 0.5rem);

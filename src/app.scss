@@ -137,6 +137,32 @@ $shooting-time: 3000ms;
 	}
 }
 
+.glow-effect {
+	position: relative;
+	animation: glow 1.5s infinite ease-in-out;
+}
+.fade-in-out {
+    opacity: 1;
+    animation: fade 2s linear infinite;
+}
+
+
+@keyframes fade {
+  0%,100% { opacity: 0 }
+  50% { opacity: 1 }
+}
+@keyframes glow {
+	0% {
+		box-shadow: 0 0 5px rgba(255, 105, 180, 0.7);
+	}
+	50% {
+		box-shadow: 0 0 8px rgba(255, 105, 180, 1);
+	}
+	100% {
+		box-shadow: 0 0 5px rgba(255, 105, 180, 0.7);
+	}
+}
+
 @keyframes tail {
 	0% {
 		width: 0;

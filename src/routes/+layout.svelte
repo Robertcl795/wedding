@@ -5,10 +5,13 @@
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 	import { onMount, onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { fade } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import Navigation from '$components/Navigation.svelte';
 	import { browser } from '$app/environment';
+	import MaterialSymbolsArrowCircleRightRounded from '~icons/material-symbols/arrow-circle-right-rounded';
+	import MaterialSymbolsArrowCircleLeftRounded from '~icons/material-symbols/arrow-circle-left-rounded';
+	import { cubicOut } from 'svelte/easing';
 
 	initializeStores();
 
@@ -19,9 +22,6 @@
 	}
 	const routes = ['/home', '/countdown', '/details', '/gifts', '/rsvp'];
 	let currentIndex = 0;
-	let mainElement: any;
-	let isAtBottom = false;
-	let lastScrollTop = 0;
 
 	$: {
 		// Update currentIndex whenever the route changes
@@ -34,76 +34,67 @@
 		}
 	}
 
-	onMount(() => {
-		if (browser) {
-			window.addEventListener('wheel', handleScroll, { passive: false });
-			window.addEventListener('touchmove', handleTouchMove, { passive: false });
-			window.addEventListener('touchend', handleTouchEnd, { passive: false });
+	$: currentIndex = routes.indexOf($page.url.pathname);
+
+	let touchStartX = 0;
+	let touchEndX = 0;
+	let swipeProgress = 0;
+	let isSwipeBlocked = false;
+
+	function handleTouchStart(e) {
+		// Check if the touch started on a blocked element
+		if (e.target.closest('.block-swipe')) {
+			isSwipeBlocked = true;
+			return;
 		}
+		isSwipeBlocked = false;
+		touchStartX = e.changedTouches[0].screenX;
+		swipeProgress = 0;
+	}
+
+	function handleTouchMove(e) {
+		if (isSwipeBlocked) return;
+		touchEndX = e.changedTouches[0].screenX;
+		const swipeDistance = touchEndX - touchStartX;
+		const maxSwipeDistance = window.innerWidth / 2;
+		swipeProgress =
+			Math.min(Math.abs(swipeDistance) / maxSwipeDistance, 1) * (swipeDistance > 0 ? -1 : 1);
+	}
+
+	function handleTouchEnd(e) {
+		if (isSwipeBlocked) return;
+		touchEndX = e.changedTouches[0].screenX;
+		handleSwipe();
+		swipeProgress = 0;
+	}
+
+	function handleSwipe() {
+		const swipeThreshold = window.innerWidth / 4; // 25% of screen width
+		const swipeDistance = touchEndX - touchStartX;
+
+		if (Math.abs(swipeDistance) > swipeThreshold) {
+			if (swipeDistance > 0 && currentIndex > 0) {
+				// Swipe right, go to previous route
+				goto(routes[currentIndex - 1]);
+			} else if (swipeDistance < 0 && currentIndex < routes.length - 1) {
+				// Swipe left, go to next route
+				goto(routes[currentIndex + 1]);
+			}
+		}
+	}
+
+	onMount(() => {
+		const mainElement: any = document.querySelector('main');
+		mainElement.addEventListener('touchstart', handleTouchStart, { passive: true });
+		mainElement.addEventListener('touchmove', handleTouchMove, { passive: true });
+		mainElement.addEventListener('touchend', handleTouchEnd, { passive: true });
 
 		return () => {
-			if (browser) {
-				window.removeEventListener('wheel', handleScroll);
-				window.removeEventListener('touchmove', handleTouchMove);
-				window.removeEventListener('touchend', handleTouchEnd);
-			}
+			mainElement.removeEventListener('touchstart', handleTouchStart);
+			mainElement.removeEventListener('touchmove', handleTouchMove);
+			mainElement.removeEventListener('touchend', handleTouchEnd);
 		};
 	});
-
-	function isScrolledToBottom() {
-		if (!browser || !mainElement) return false;
-		const threshold = 5; // pixels from bottom
-		return mainElement.scrollHeight - mainElement.scrollTop <= mainElement.clientHeight + threshold;
-	}
-
-	function handleScroll(event) {
-		if (!browser) return;
-		event.preventDefault();
-		const scrollDown = event.deltaY > 0;
-
-		if (scrollDown && isScrolledToBottom()) {
-			if (currentIndex < routes.length - 1) {
-				currentIndex++;
-				goto(routes[currentIndex]);
-			}
-		} else if (!scrollDown && mainElement.scrollTop === 0) {
-			if (currentIndex > 0) {
-				currentIndex--;
-				goto(routes[currentIndex]);
-			}
-		} else {
-			mainElement.scrollTop += event.deltaY;
-		}
-	}
-
-	function handleTouchMove(event) {
-		if (!browser || !mainElement) return;
-		const currentScrollTop = mainElement.scrollTop;
-
-		if (currentScrollTop > lastScrollTop) {
-			// Scrolling down
-			if (isScrolledToBottom()) {
-				isAtBottom = true;
-			}
-		} else if (currentScrollTop < lastScrollTop) {
-			// Scrolling up
-			isAtBottom = false;
-		}
-
-		lastScrollTop = currentScrollTop;
-	}
-
-	function handleTouchEnd(event) {
-		if (!browser) return;
-		if (isAtBottom && currentIndex < routes.length - 1) {
-			currentIndex++;
-			goto(routes[currentIndex]);
-		} else if (mainElement && mainElement.scrollTop === 0 && currentIndex > 0) {
-			currentIndex--;
-			goto(routes[currentIndex]);
-		}
-		isAtBottom = false;
-	}
 </script>
 
 <Drawer>
@@ -138,19 +129,51 @@
 		</AppBar>
 	</svelte:fragment>
 	<!-- Page Route Content -->
-	<main bind:this={mainElement}>
+	<div class="main-content">
 		{#key $page.url.pathname}
-			<div in:fade={{ duration: 300, delay: 300 }} out:fade={{ duration: 300 }}>
+			<div class="h-full" in:fade={{ duration: 300, delay: 300 }} out:fade={{ duration: 100 }}>
 				<slot />
 			</div>
 		{/key}
-	</main>
+	</div>
+	{#if swipeProgress !== 0}
+		<div
+			class="swipe-indicator"
+			style="transform: translateX({swipeProgress * 100}%)"
+			in:fly={{ x: swipeProgress > 0 ? -50 : 50, duration: 200, easing: cubicOut }}
+			out:fade={{ duration: 200 }}
+		>
+			{#if swipeProgress > 0}
+				<MaterialSymbolsArrowCircleRightRounded style="font-size: 3rem;" />
+			{:else}
+				<MaterialSymbolsArrowCircleLeftRounded style="font-size: 3rem;" />
+			{/if}
+		</div>
+	{/if}
+	<footer slot="footer" class="grid items-center grid-cols-2 gap-4"></footer>
 </AppShell>
 
 <style>
-	main {
-		height: 100vh;
+	div.main-content {
 		overflow-y: auto;
 		scroll-behavior: smooth;
+		height: 100%;
+		display: grid;
+		align-items: center;
+	}
+	.swipe-indicator {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: rgba(0, 0, 0, 0.5);
+		color: white;
+		padding: 0.5rem;
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 1000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 </style>

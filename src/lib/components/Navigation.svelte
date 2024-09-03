@@ -15,7 +15,7 @@
 	$: currentPath = $page.url.pathname;
 
 	const navItems = [
-		{ href: '/', label: 'Inicio' },
+		{ href: '/home', label: 'Inicio' },
 		{ href: '/countdown', label: 'Cuenta regresiva' },
 		{ href: '/details', label: 'Detalles' },
 		{ href: '/gifts', label: 'Regalos' },
