@@ -2,20 +2,27 @@
 	import Section from '$components/Section.svelte';
 	import { Button, Card, Input } from 'flowbite-svelte';
 	import { ArrowRightOutline } from 'flowbite-svelte-icons';
-	import { seats } from '$lib/stores/seatsStore';
+	export let data: any;
 
 	const phoneNumber = '523310817122'; // Replace with the actual phone number
 	const message = encodeURIComponent('Hola! Confirmo mi asistencia para la boda!');
 	const whatsappLink = `https://wa.me/${phoneNumber}?text=${message}`;
 
-	const inviteeNames: any[] = Array.from({ length: $seats }).fill('');
+	const inviteeNames: any[] = Array.from({ length: data.seats }).fill('');
 	$: isFormValid = inviteeNames.every((name) => name.trim().length > 0);
 	// Handle form submission
 	function handleSubmit(event: any) {
 		event.preventDefault();
-		console.log('Invitee Names:', inviteeNames);
-		// Process the data as needed
-		//  href={whatsappLink} target="_blank" rel="noopener noreferrer"
+		// Create the RSVP message
+		const inviteesList = inviteeNames.map((name, index) => `${index + 1}. ${name.trim()}`).join('\n');
+		const message = `RSVP:\n${inviteesList}`;
+
+		// Encode the message for the WhatsApp URL
+		const encodedMessage = encodeURIComponent(message);
+
+		// Redirect to WhatsApp with the pre-filled message
+		const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+		window.location.href = whatsappUrl;
 	}
 </script>
 
