@@ -6,7 +6,6 @@
 
 	const phoneNumber = '523310817122'; // Replace with the actual phone number
 	const message = encodeURIComponent('Hola! Confirmo mi asistencia para la boda!');
-	const whatsappLink = `https://wa.me/${phoneNumber}?text=${message}`;
 
 	const inviteeNames: any[] = Array.from({ length: data.seats }).fill('');
 	$: isFormValid = inviteeNames.every((name) => name.trim().length > 0);

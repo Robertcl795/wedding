@@ -3,7 +3,6 @@ import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ url, cookies }) => {
     const numberParam = url.searchParams.get('seats');
-    
     if (numberParam) {
         // Set the cookie with the number from the URL parameter
         cookies.set('seats', numberParam, {
@@ -19,7 +18,8 @@ export const load = async ({ url, cookies }) => {
     }
 
     // Load and return the cookie value
-    const seats = cookies.get('seats');
+    const cookieVal = cookies.get('seats');
+    const seats = cookieVal ? parseInt(cookieVal, 10) : 2;
     return {
         seats
     };
